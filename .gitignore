@@ -1,0 +1,5 @@
+.idea
+*.pyc
+/env
+/deploy/local/.env.local
+/database_data

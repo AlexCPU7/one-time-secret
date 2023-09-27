@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15
+    ports:
+      - ${DB_PORT_EXTERNAL:-5432}:5432
+    environment:
+      - POSTGRES_DB=${DB_NAME:-postgres}
+      - POSTGRES_USER=${DB_USER:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
+    volumes:
+      - ../../database_data:/var/lib/postgresql/data
+    networks:
+      - main_network
+
+  app:
+    build:
+      context: ../../
+      dockerfile: docker/local/Dockerfile
+    depends_on:
+      - db
+    env_file:
+      - .env.local
+    ports:
+      - ${PORT_EXTERNAL:-8100}:${PORT_EXTERNAL:-8100}
+    volumes:
+      - ../../:/code
+    command: python src/main.py
+    networks:
+      - main_network
+
+networks:
+  main_network:
+    driver: bridge

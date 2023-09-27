@@ -1,0 +1,16 @@
+# Main
+fastapi
+uvicorn
+httpx
+loguru
+sqlalchemy
+alembic
+asyncpg
+slowapi
+pycryptodome
+
+# Dev
+flake8
+pip-tools
+pytest
+pytest-asyncio
